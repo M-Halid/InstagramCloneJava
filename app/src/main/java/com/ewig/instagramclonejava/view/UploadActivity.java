@@ -1,4 +1,4 @@
-package com.ewig.instagramclonejava;
+package com.ewig.instagramclonejava.view;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -21,7 +21,6 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Toast;
 
-import com.ewig.instagramclonejava.databinding.ActivityUploadBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
@@ -35,7 +34,6 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.HashMap;
-import java.util.Objects;
 import java.util.UUID;
 
 public class UploadActivity extends AppCompatActivity {

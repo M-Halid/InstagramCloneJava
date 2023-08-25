@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:textAlignment="center"
-    tools:context=".UploadActivity">
+    tools:context=".view.UploadActivity">
 
     <ImageView
         android:id="@+id/selectImage"
