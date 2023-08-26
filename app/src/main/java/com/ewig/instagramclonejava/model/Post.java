@@ -1,9 +1,9 @@
 package com.ewig.instagramclonejava.model;
 
 public class Post {
-    String email;
-    String comment;
-    String downloadUrl;
+    public String email;
+    public String comment;
+    public String downloadUrl;
 
     public Post (String email, String comment, String downloadUrl){
         this.email=email;

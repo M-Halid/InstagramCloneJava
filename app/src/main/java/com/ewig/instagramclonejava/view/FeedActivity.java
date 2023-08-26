@@ -3,6 +3,7 @@ package com.ewig.instagramclonejava.view;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.ewig.instagramclonejava.R;
+import com.ewig.instagramclonejava.adapter.PostAdapter;
 import com.ewig.instagramclonejava.databinding.ActivityFeedBinding;
 import com.ewig.instagramclonejava.model.Post;
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,6 +22,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
@@ -30,6 +33,7 @@ public class FeedActivity extends AppCompatActivity {
     private FirebaseFirestore firebaseFirestore;
     ArrayList<Post> postArrayList;
     private ActivityFeedBinding binding;
+    PostAdapter postAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,11 +45,14 @@ public class FeedActivity extends AppCompatActivity {
         auth= FirebaseAuth.getInstance();
         firebaseFirestore= FirebaseFirestore.getInstance();
         getData();
+        binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        postAdapter=new PostAdapter(postArrayList);
+        binding.recyclerView.setAdapter(postAdapter);
     }
 
     private void getData(){
         //DocumentReference documentReference = firebaseFirestore.collection("Posts");
-        firebaseFirestore.collection("Posts").addSnapshotListener(new EventListener<QuerySnapshot>() {
+        firebaseFirestore.collection("Posts").orderBy("date", Query.Direction.DESCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
            if (error!=null){
@@ -63,6 +70,7 @@ public class FeedActivity extends AppCompatActivity {
                     postArrayList.add(post);
 
                }
+               postAdapter.notifyDataSetChanged();
            }
             }
         });
